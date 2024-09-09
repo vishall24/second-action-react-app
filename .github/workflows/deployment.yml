@@ -1,7 +1,7 @@
 name: Deploy Project
 on: push
 jobs:
-   test:
+   test:                                          
      runs-on: ubuntu-latest
      steps:
         - name: Get code
@@ -14,7 +14,8 @@ jobs:
           run: npm ci                #we could use npm install but npm ci will install the versions from package-lock.json file and download the exact version
         - name: Run tests
           run: npm test
-   deploy:
+   deploy:                           # the run job and deploy job will run in parallel.
+     needs: test
      runs-on: ubuntu-latest          #IMPORTANT: every job has it's own runner/VM that totally different from other jobs/machines
      steps:
       - name: Get code
